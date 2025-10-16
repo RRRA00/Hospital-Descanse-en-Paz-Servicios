@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS patients (
   document_number VARCHAR(20) NOT NULL UNIQUE,
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR(100) NOT NULL,
-  birth_date DATE,
+  birth_date TIMESTAMP,
   gender VARCHAR(10),
   email VARCHAR(100),
   phone VARCHAR(20),
