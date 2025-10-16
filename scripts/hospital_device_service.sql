@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS vital_signs (
   device_id BIGINT NOT NULL,
   patient_id BIGINT NOT NULL,          -- Copiado desde patient-service (no FK real)
   temperature DECIMAL(5,2),
-  heart_rate INT,
+  heart_rate BIGINT,
   oxygen_level DECIMAL(5,2),
   blood_pressure VARCHAR(20),
   measurement_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
