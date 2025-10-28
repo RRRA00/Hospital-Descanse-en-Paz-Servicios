@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: security-service
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+        register: true
+        prefer-ip-address: true
+        hostname: host.docker.internal     # 👈 permite que Consul en Docker te vea
+        health-check-path: /actuator/health
+        health-check-interval: 10s
+        health-check-critical-timeout: 30s
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs   # o /api-docs si prefieres
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+
+server:
+  port: 9000
+
+
+
+jwt:
+  time:
+    expiration: 86400000

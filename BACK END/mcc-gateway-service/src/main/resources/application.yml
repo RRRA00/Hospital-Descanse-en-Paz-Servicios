@@ -1,0 +1,83 @@
+spring:
+  application:
+    name: mcc-gateway-service
+
+  cloud:
+    config:
+      enabled: false
+      config:
+        import-check:
+          enabled: false
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+        register: true
+        prefer-ip-address: true
+        health-check-path: /actuator/health   # 👈 endpoint que Consul usará
+        health-check-interval: 10s            # 👈 cada cuánto hará el check
+        health-check-critical-timeout: 30s    # 👈 cuánto esperar antes de marcarlo "failing"
+
+    gateway:
+      routes:
+        - id: mcc-user-service
+          uri: lb://mcc-user-service
+          predicates:
+            - Path=/mcc-user/**
+          filters:
+            - StripPrefix=1
+
+        - id: mcc-alert-service
+          uri: lb://mcc-alert-service
+          predicates:
+            - Path=/mcc-alert/**
+          filters:
+            - StripPrefix=1
+
+        - id: mcc-device-service
+          uri: lb://mcc-device-service
+          predicates:
+            - Path=/mcc-device/**
+          filters:
+            - StripPrefix=1
+
+        - id: mcc-patient-service
+          uri: lb://mcc-patient-service
+          predicates:
+            - Path=/mcc-patient/**
+          filters:
+            - StripPrefix=1
+
+        - id: mcc-security-service
+          uri: lb://mcc-security-service
+          predicates:
+            - Path=/mcc-security/**
+          filters:
+            - StripPrefix=1
+            - RemoveRequestHeader=Cookie
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: User Service
+        url: /mcc-user/v3/api-docs
+      - name: Alert Service
+        url: /mcc-alert/v3/api-docs
+      - name: Device Service
+        url: /mcc-device/v3/api-docs
+      - name: Patient Service
+        url: /mcc-patient/v3/api-docs
+      - name: Security Service
+        url: /mcc-security/v3/api-docs
+
+
+server:
+  port: 8080
+
+jwt:
+  time:
+    expiration: 86400000
