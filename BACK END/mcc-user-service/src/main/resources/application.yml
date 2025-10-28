@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: mcc-user-service
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+        register: true
+        prefer-ip-address: true
+        health-check-path: /actuator/health   # 👈 endpoint que Consul usará
+        health-check-interval: 10s            # 👈 cada cuánto hará el check
+        health-check-critical-timeout: 30s    # 👈 cuánto esperar antes de marcarlo "failing"
+  datasource:
+    url: jdbc:mysql://localhost:3306/hospital_user_service?useSSL=false&allowPublicKeyRetrieval=true&serverTimeZone=UTC&autoReconnect=true
+    username: root
+    password: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs   # o /api-docs si prefieres
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+
+
+server:
+  port: 8084
