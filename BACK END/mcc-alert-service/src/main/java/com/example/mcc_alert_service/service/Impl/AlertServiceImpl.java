@@ -4,6 +4,7 @@ import com.example.mcc_alert_service.client.DeviceClient;
 import com.example.mcc_alert_service.client.PatientClient;
 import com.example.mcc_alert_service.dto.AlertRequest;
 import com.example.mcc_alert_service.dto.AlertResponse;
+import com.example.mcc_alert_service.dto.VitalSignDTO;
 import com.example.mcc_alert_service.exeption.ResourceNotFound;
 import com.example.mcc_alert_service.model.Alert;
 import com.example.mcc_alert_service.repository.AlertRepository;
@@ -65,5 +66,21 @@ public class AlertServiceImpl implements AlertService {
         );
         alertRepository.delete(alertFound);
 
+    }
+
+    @Override
+    public void processVitalSign(VitalSignDTO vital) {
+        if (vital.heartRate() > 120) {
+            Alert alert = Alert.builder()
+                    .patientId(vital.patientId())
+                    .deviceId(vital.deviceId())
+                    .type("ALTA FRECUENCIA CARDIACA")
+                    .message("Frecuencia detectada: " + vital.heartRate())
+                    .level("CRITICAL")
+                    .acknowledged(false)
+                    .build();
+
+            alertRepository.save(alert);
+        }
     }
 }
