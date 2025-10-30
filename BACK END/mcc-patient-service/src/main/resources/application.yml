@@ -23,7 +23,6 @@ spring:
         health-check-critical-timeout: 30s    # 👈 cuánto esperar antes de marcarlo "failing"
 
   rabbitmq:
-    image: rabbitmq:4.2-rc-management
     host: localhost
     port: 5672
     username: admin

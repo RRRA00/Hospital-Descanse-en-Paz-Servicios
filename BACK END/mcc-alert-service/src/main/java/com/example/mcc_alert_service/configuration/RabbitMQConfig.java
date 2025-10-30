@@ -1,4 +1,5 @@
-package com.example.mcc_patient_service.configuration;
+package com.example.mcc_alert_service.configuration;
+
 
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Binding;
@@ -43,5 +44,5 @@ public class RabbitMQConfig {
         template.setMessageConverter(jsonMessageConverter());
         return template;
     }
-
 }
+

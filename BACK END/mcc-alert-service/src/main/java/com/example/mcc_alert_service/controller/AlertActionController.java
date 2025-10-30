@@ -1,9 +1,11 @@
 package com.example.mcc_alert_service.controller;
 
+import com.example.mcc_alert_service.configuration.RabbitMQConfig;
 import com.example.mcc_alert_service.dto.AlertActionRequest;
 import com.example.mcc_alert_service.service.AlertActionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/alert-action")
 public class AlertActionController {
     private final AlertActionService alertActionService;
+    private RabbitTemplate template;
 
     @GetMapping
     public ResponseEntity<?> getAll(){
